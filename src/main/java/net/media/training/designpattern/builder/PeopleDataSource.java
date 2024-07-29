@@ -10,15 +10,30 @@ import java.util.List;
  * To change this template use File | Settings | File Templates.
  */
 public class PeopleDataSource {
-    public static String getPeopleXml(List<Person> persons) {
-        String finalXML = "<?xml version=\"1.0\" encoding=\"UTF-8\"?>";
-        finalXML += "<People number=\"" + persons.size() + "\">";
+    private final List<Person> persons;
+
+    PeopleDataSource(List<Person> persons) {
+        this.persons = persons;
+    }
+
+    public String getPeopleXml() {
+        StringBuilder finalXML = new StringBuilder("<?xml version=\"1.0\" encoding=\"UTF-8\"?>");
+        finalXML.append("<People number=\"").append(persons.size()).append("\">");
+
         for (Person person : persons) {
-            finalXML += "<Person id=\"" + person.getId() + "\" name=\"" + person.getName() + "\">" +
-                    "<Address><City>" + person.getCity() + "</City><Country>" + person.getCountry() + "</Country></Address>" +
-                    "</Person>";
+            finalXML.append("<Person id=\"")
+                    .append(person.getId())
+                    .append("\" name=\"")
+                    .append(person.getName())
+                    .append("\">")
+                    .append("<Address><City>")
+                    .append(person.getCity())
+                    .append("</City><Country>")
+                    .append(person.getCountry())
+                    .append("</Country></Address>")
+                    .append("</Person>");
         }
-        finalXML += "</People>";
-        return finalXML;
+        finalXML.append("</People>");
+        return finalXML.toString();
     }
 }

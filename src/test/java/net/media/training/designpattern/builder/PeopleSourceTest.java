@@ -41,7 +41,11 @@ public class PeopleSourceTest {
                 .country("Russia");
         persons.add(builder.build());
 
-        String actual = PeopleDataSource.getPeopleXml(persons);
+        PeopleDataSource peopleDataSource = new PeopleDataSourceBuilder()
+                .setPersons(persons)
+                .build();
+
+        String actual = peopleDataSource.getPeopleXml();
 
         assertEquals("<?xml version=\"1.0\" encoding=\"UTF-8\"?><People number=\"3\"><Person id=\"25\" name=\"Wu\"><Address><City>Shanghai</City><Country>China</Country></Address></Person><Person id=\"200\" name=\"Kobayashi\"><Address><City>Kanto</City><Country>Japan</Country></Address></Person><Person id=\"1\" name=\"Vasily\"><Address><City>Leningrad</City><Country>Russia</Country></Address></Person></People>", actual);
     }
