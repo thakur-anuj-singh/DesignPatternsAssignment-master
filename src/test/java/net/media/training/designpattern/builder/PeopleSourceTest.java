@@ -27,12 +27,14 @@ public class PeopleSourceTest {
                .country("China");
         persons.add(builder.build());
 
+        builder = new Builder();
         builder.name("Kobayashi")
                 .id(200)
                 .city("Kanto")
                 .country("Japan");
         persons.add(builder.build());
 
+        builder = new Builder();
         builder.name("Vasily")
                 .id(1)
                 .city("Leningrad")
