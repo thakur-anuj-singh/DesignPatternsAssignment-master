@@ -10,30 +10,24 @@ import java.util.List;
  * To change this template use File | Settings | File Templates.
  */
 public class PeopleDataSource {
-    private final List<Person> persons;
 
-    PeopleDataSource(List<Person> persons) {
-        this.persons = persons;
-    }
+    public static String getPeopleXml(List<Person> persons) {
+        XMLBuilder root = new XMLBuilder("People")
+                .addAttribute("number",String.valueOf(persons.size()));
 
-    public String getPeopleXml() {
-        StringBuilder finalXML = new StringBuilder("<?xml version=\"1.0\" encoding=\"UTF-8\"?>");
-        finalXML.append("<People number=\"").append(persons.size()).append("\">");
+        String version = "<?xml version=\"1.0\" encoding=\"UTF-8\"?>";
+        for(Person person : persons){
+            XMLBuilder personObj = new XMLBuilder("Person");
+            personObj.addAttribute("id", String.valueOf(person.getId()));
+            personObj.addAttribute("name", person.getName());
 
-        for (Person person : persons) {
-            finalXML.append("<Person id=\"")
-                    .append(person.getId())
-                    .append("\" name=\"")
-                    .append(person.getName())
-                    .append("\">")
-                    .append("<Address><City>")
-                    .append(person.getCity())
-                    .append("</City><Country>")
-                    .append(person.getCountry())
-                    .append("</Country></Address>")
-                    .append("</Person>");
+
+            XMLBuilder address = new XMLBuilder("Address");
+            address.addChild("City").setContent(person.getCity());
+            address.addChild("Country").setContent(person.getCountry());
+            personObj.addChild(address);
+            root.addChild(personObj);
         }
-        finalXML.append("</People>");
-        return finalXML.toString();
+        return version + root.build();
     }
 }
