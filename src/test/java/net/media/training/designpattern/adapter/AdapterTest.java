@@ -1,6 +1,8 @@
 package net.media.training.designpattern.adapter;
 
+import net.media.training.designpattern.adapter.thirdparty.ThirdPartyLeaveRecord;
 import org.junit.Test;
+import static org.junit.Assert.assertEquals;
 
 /**
  * Created by IntelliJ IDEA.
@@ -14,15 +16,22 @@ public class AdapterTest {
     /*Uncomment the code and make it compilable*/
     @Test
     public void testGetDisplayWallOfShame() throws Exception {
-//        FrontDoorRegister frontDoorRegister = new FrontDoorRegister(new ThirdPartyLeaveRecord());
-//        assertEquals("Super Commando Dhruv has been the most absent employee, shame!", frontDoorRegister.getDisplayWallOfShame());
+        ThirdPartyLeaveRecord thirdPartyLeaveRecord = new ThirdPartyLeaveRecord();
+        LeaveRecordAdapter leaveRecordAdapter = new LeaveRecordAdapter(thirdPartyLeaveRecord);
+
+        FrontDoorRegister frontDoorRegister = new FrontDoorRegister(leaveRecordAdapter);
+        System.out.println(frontDoorRegister.getDisplayWallOfShame());
+        assertEquals("Super Commando Dhruv has been the most absent employee, shame!", frontDoorRegister.getDisplayWallOfShame());
     }
 
     @Test
     public void salaryDisbersmentTest() {
-//      SalaryDisberser salaryDisberser = new SalaryDisberser();
-//      assertEquals(10000, salaryDisberser.salary("James Bond"));
-//      assertEquals(8000, salaryDisberser.salary("Austin Powers"));
-//      assertEquals(5000, salaryDisberser.salary("Super Commando Dhruv"));
+        ThirdPartyLeaveRecord thirdPartyLeaveRecord = new ThirdPartyLeaveRecord();
+        LeaveRecordAdapter leaveRecordAdapter = new LeaveRecordAdapter(thirdPartyLeaveRecord);
+
+        SalaryDisberser salaryDisberser = new SalaryDisberser(leaveRecordAdapter);
+        assertEquals(10000, salaryDisberser.salary("James Bond"));
+        assertEquals(8000, salaryDisberser.salary("Austin Powers"));
+        assertEquals(5000, salaryDisberser.salary("Super Commando Dhruv"));
     }
 }
